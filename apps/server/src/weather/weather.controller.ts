@@ -6,7 +6,7 @@ export class WeatherController {
   constructor(private readonly weatherService: WeatherService) {}
 
   @Get()
-  getWeather(
+  async getWeather(
     @Query('latitude') latitude: number,
     @Query('longitude') longitude: number,
   ) {

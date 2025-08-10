@@ -16,4 +16,9 @@ export class UserController {
   findAll(): User[] {
     return this.userService.findAll();
   }
+
+  @Post('random')
+  createRandom(): Promise<User> {
+    return this.userService.createRandom();
+  }
 }

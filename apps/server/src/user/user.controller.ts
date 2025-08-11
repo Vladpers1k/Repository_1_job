@@ -2,10 +2,14 @@ import { Controller, Get, Post, Body } from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './user.model';
+import { RandomUserService } from './random-user.service';
 
 @Controller('users')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly randomUserService: RandomUserService,
+  ) {}
 
   @Post()
   create(@Body() createUserDto: CreateUserDto): Promise<User> {
@@ -18,7 +22,8 @@ export class UserController {
   }
 
   @Post('random')
-  createRandom(): Promise<User> {
-    return this.userService.createRandom();
+  async createRandomUser(): Promise<User> {
+    const randomUserDto = await this.randomUserService.fetchRandomUser();
+    return this.userService.create(randomUserDto);
   }
 }

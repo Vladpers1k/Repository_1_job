@@ -1,26 +1,24 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { Routes, Route, Link } from "react-router-dom";
+import UsersPage from "./UsersPage";
+import SavedPage from "./SavedPage";
 
-function App() {
+export default function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="p-4">
+      <nav className="flex gap-4 mb-6 border-b pb-2">
+        <Link to="/" className="text-blue-500 hover:underline">
+          Users
+        </Link>
+        <Link to="/saved" className="text-blue-500 hover:underline">
+          Saved
+        </Link>
+      </nav>
+
+      <Routes>
+        <Route path="/" element={<UsersPage />} />
+        <Route path="/saved" element={<SavedPage />} />
+      </Routes>
     </div>
   );
 }
-
-export default App;

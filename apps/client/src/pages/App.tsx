@@ -1,24 +1,28 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import UsersPage from "./UsersPage";
 import SavedPage from "./SavedPage";
 
-export default function App() {
+function App() {
   return (
-    <div className="p-4">
-      <nav className="flex gap-4 mb-6 border-b pb-2">
-        <Link to="/" className="text-blue-500 hover:underline">
-          Users
-        </Link>
-        <Link to="/saved" className="text-blue-500 hover:underline">
-          Saved
-        </Link>
-      </nav>
+    <Router>
+      <div className="min-h-screen bg-gray-100">
+        <nav className="bg-blue-600 text-white p-4 flex gap-4">
+          <Link to="/" className="hover:underline">
+            Users
+          </Link>
+          <Link to="/saved" className="hover:underline">
+            Saved Users
+          </Link>
+        </nav>
 
-      <Routes>
-        <Route path="/" element={<UsersPage />} />
-        <Route path="/saved" element={<SavedPage />} />
-      </Routes>
-    </div>
+        <Routes>
+          <Route path="/" element={<UsersPage />} />
+          <Route path="/saved" element={<SavedPage />} />
+        </Routes>
+      </div>
+    </Router>
   );
 }
+
+export default App;

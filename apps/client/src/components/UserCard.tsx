@@ -25,10 +25,11 @@ export default function UserCard({ user, onSave }: Props) {
   return (
     <div className="border rounded-lg p-4 shadow flex flex-col items-center gap-2">
       <img
-        src={user.picture}
-        alt={user.name}
+        src={user.picture || "https://via.placeholder.com/150"}
+        alt={user.name || "User"}
         className="w-24 h-24 rounded-full"
       />
+
       <h2 className="text-lg font-semibold">{user.name}</h2>
       <p className="text-sm text-gray-600">{user.gender}</p>
       <p className="text-sm">

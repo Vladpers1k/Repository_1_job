@@ -29,17 +29,19 @@ export default function UserCard({ user, onSave }: Props) {
         alt={user.name || "User"}
         className="w-24 h-24 rounded-full"
       />
-
-      <h2 className="text-lg font-semibold">{user.name}</h2>
-      <p className="text-sm text-gray-600">{user.gender}</p>
+      <h2 className="text-lg font-semibold">{user.name || "Unknown"}</h2>
+      <p className="text-sm text-gray-600">{user.gender || "—"}</p>
       <p className="text-sm">
-        {user.location.city}, {user.location.country}
+        {user.location?.city || "Unknown City"},{" "}
+        {user.location?.country || "Unknown Country"}
       </p>
-      <p className="text-sm">{user.email}</p>
-      <p className="text-sm font-medium">
-        🌡 {user.weather.temperature}°C (min: {user.weather.min}°C, max:{" "}
-        {user.weather.max}°C)
-      </p>
+      <p className="text-sm">{user.email || "No email"}</p>
+      {user.weather && (
+        <p className="text-sm font-medium">
+          🌡 {user.weather.temperature ?? "?"}°C (min: {user.weather.min ?? "?"}
+          °C, max: {user.weather.max ?? "?"}°C)
+        </p>
+      )}
       {onSave && (
         <button
           onClick={onSave}

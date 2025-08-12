@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-import UsersPage from "./UsersPage";
-import SavedPage from "./SavedPage";
+import UsersPage from "./pages/UsersPage";
+import SavedPage from "./pages/SavedUsersPage";
 
 function App() {
   return (

@@ -19,9 +19,10 @@ interface User {
 interface Props {
   user: User;
   onSave?: () => void;
+  onDelete?: () => void;
 }
 
-export default function UserCard({ user, onSave }: Props) {
+export default function UserCard({ user, onSave, onDelete }: Props) {
   return (
     <div className="border rounded-lg p-4 shadow flex flex-col items-center gap-2">
       <img
@@ -48,6 +49,14 @@ export default function UserCard({ user, onSave }: Props) {
           className="mt-2 px-4 py-1 bg-blue-500 text-white rounded hover:bg-blue-600"
         >
           Save
+        </button>
+      )}
+      {onDelete && (
+        <button
+          onClick={onDelete}
+          className="mt-2 px-4 py-1 bg-red-500 text-white rounded hover:bg-red-600"
+        >
+          Delete
         </button>
       )}
     </div>

@@ -1,29 +1,40 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import {
+  Controller,
+  Get,
+  Post,
+  Body,
+  Delete,
+  Param,
+  UseGuards,
+} from '@nestjs/common';
 import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
+import { CheckDuplicateGuard } from './guards/check-duplicate.guard';
 import { User } from './user.model';
 import { RandomUserService } from './random-user.service';
 
 @Controller('users')
 export class UserController {
-  constructor(
-    private readonly userService: UserService,
-    private readonly randomUserService: RandomUserService,
-  ) {}
+  constructor(private readonly userService: UserService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.userService.create(createUserDto);
+  @UseGuards(CheckDuplicateGuard)
+  saveUser(@Body() createUserDto: CreateUserDto) {
+    return this.userService.saveUser(createUserDto);
   }
 
   @Get()
-  findAll(): User[] {
-    return this.userService.findAll();
+  getSavedUsers() {
+    return this.userService.findAllSaved();
   }
 
   @Post('random')
-  async createRandomUser(): Promise<User> {
-    const randomUserDto = await this.randomUserService.fetchRandomUser();
-    return this.userService.create(randomUserDto);
+  async getRandomUser() {
+    return this.userService.generateRandomUser(); // НЕ зберігаємо у масиві
+  }
+
+  @Delete(':email')
+  deleteUser(@Param('email') email: string) {
+    return this.userService.deleteUser(email);
   }
 }

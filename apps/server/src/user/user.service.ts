@@ -6,17 +6,16 @@ import { RandomUserService } from './random-user.service';
 
 @Injectable()
 export class UserService {
-  private users: User[] = [];
+  private savedUsers: User[] = []; // тільки для збережених
 
   constructor(
     private weatherService: WeatherService,
     private randomUserService: RandomUserService,
   ) {}
 
-  async create(userDto: CreateUserDto): Promise<User> {
+  async saveUser(userDto: CreateUserDto): Promise<User> {
     const latitude = Number(userDto.location.latitude);
     const longitude = Number(userDto.location.longitude);
-
     const weather = await this.weatherService.getWeather(latitude, longitude);
 
     const user: User = {
@@ -33,16 +32,38 @@ export class UserService {
       weather,
     };
 
-    this.users.push(user);
+    this.savedUsers.push(user);
     return user;
   }
 
-  async createRandom(): Promise<User> {
-    const randomUserDto = await this.randomUserService.fetchRandomUser();
-    return this.create(randomUserDto);
+  async generateRandomUser(): Promise<User> {
+    while (true) {
+      const randomUserDto = await this.randomUserService.fetchRandomUser();
+      const alreadySaved = this.savedUsers.some(
+        (u) => u.email === randomUserDto.email,
+      );
+      if (!alreadySaved) {
+        const latitude = Number(randomUserDto.location.latitude);
+        const longitude = Number(randomUserDto.location.longitude);
+        const weather = await this.weatherService.getWeather(
+          latitude,
+          longitude,
+        );
+        return { ...randomUserDto, weather };
+      }
+    }
   }
 
-  findAll(): User[] {
-    return this.users;
+  findAllSaved(): User[] {
+    return this.savedUsers;
+  }
+
+  deleteUser(email: string): { message: string } {
+    const index = this.savedUsers.findIndex((user) => user.email === email);
+    if (index === -1) {
+      return { message: 'User not found' };
+    }
+    this.savedUsers.splice(index, 1);
+    return { message: 'User deleted successfully' };
   }
 }

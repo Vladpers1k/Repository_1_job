@@ -56,7 +56,18 @@ export class UserService {
     }
   }
 
-  findAllSaved(): User[] {
+  async findAllSaved(): Promise<User[]> {
+    const updatedUsers = await Promise.all(
+      this.savedUsers.map(async (user) => {
+        const weather = await this.weatherService.getWeather(
+          user.location.latitude,
+          user.location.longitude,
+        );
+        return { ...user, weather };
+      }),
+    );
+
+    this.savedUsers = updatedUsers;
     return this.savedUsers;
   }
 

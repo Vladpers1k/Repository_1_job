@@ -10,7 +10,7 @@ import { UserService } from '../user.service';
 export class CheckDuplicateGuard implements CanActivate {
   constructor(private readonly userService: UserService) {}
 
-  canActivate(context: ExecutionContext): boolean {
+  async canActivate(context: ExecutionContext): Promise<boolean> {
     const request = context.switchToHttp().getRequest();
     const { email } = request.body;
 
@@ -18,9 +18,9 @@ export class CheckDuplicateGuard implements CanActivate {
       throw new BadRequestException('Email is required');
     }
 
-    const exists = this.userService
-      .findAllSaved()
-      .some((user) => user.email === email);
+    const users = await this.userService.findAllSaved();
+
+    const exists = users.some((user) => user.email === email);
 
     if (exists) {
       throw new BadRequestException('User already saved');

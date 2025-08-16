@@ -23,7 +23,7 @@ export class UserController {
   }
 
   @Get()
-  getSavedUsers() {
+  async getSavedUsers(): Promise<User[]> {
     return this.userService.findAllSaved();
   }
 

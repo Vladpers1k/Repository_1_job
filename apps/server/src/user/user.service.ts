@@ -6,7 +6,7 @@ import { RandomUserService } from './random-user.service';
 
 @Injectable()
 export class UserService {
-  private savedUsers: User[] = []; // тільки для збережених
+  private savedUsers: User[] = [];
 
   constructor(
     private weatherService: WeatherService,
@@ -42,6 +42,7 @@ export class UserService {
       const alreadySaved = this.savedUsers.some(
         (u) => u.email === randomUserDto.email,
       );
+
       if (!alreadySaved) {
         const latitude = Number(randomUserDto.location.latitude);
         const longitude = Number(randomUserDto.location.longitude);
@@ -49,6 +50,7 @@ export class UserService {
           latitude,
           longitude,
         );
+
         return { ...randomUserDto, weather };
       }
     }
@@ -60,9 +62,11 @@ export class UserService {
 
   deleteUser(email: string): { message: string } {
     const index = this.savedUsers.findIndex((user) => user.email === email);
+
     if (index === -1) {
       return { message: 'User not found' };
     }
+
     this.savedUsers.splice(index, 1);
     return { message: 'User deleted successfully' };
   }

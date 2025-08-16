@@ -11,7 +11,6 @@ import { UserService } from './user.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { CheckDuplicateGuard } from './guards/check-duplicate.guard';
 import { User } from './user.model';
-import { RandomUserService } from './random-user.service';
 
 @Controller('users')
 export class UserController {
@@ -30,7 +29,7 @@ export class UserController {
 
   @Post('random')
   async getRandomUser() {
-    return this.userService.generateRandomUser(); // НЕ зберігаємо у масиві
+    return this.userService.generateRandomUser();
   }
 
   @Delete(':email')

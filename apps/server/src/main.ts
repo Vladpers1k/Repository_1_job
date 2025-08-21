@@ -8,6 +8,7 @@ async function bootstrap() {
     origin: [
       'http://localhost:3001',
       'https://randomuserweatherapp.vercel.app',
+      'https://randomuserweather-4869n6kg0-vladpersiks-projects.vercel.app',
     ],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,

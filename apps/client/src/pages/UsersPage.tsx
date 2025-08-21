@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import UserCard from "../components/UserCard";
 
-const API_URL = "http://localhost:3000";
+const API_URL = process.env.REACT_APP_API_URL as string;
 
 export default function UsersPage() {
   const [users, setUsers] = useState<any[]>([]);

@@ -5,11 +5,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: [
-      'http://localhost:3001',
-      'https://randomuserweatherapp.vercel.app',
-      'https://randomuserweather-4869n6kg0-vladpersiks-projects.vercel.app',
-    ],
+    origin: ['http://localhost:3001', /\.vercel\.app$/],
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
     credentials: true,
   });

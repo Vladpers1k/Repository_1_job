@@ -1,4 +1,19 @@
-import { IsString, IsEmail, IsObject, IsNumber } from 'class-validator';
+import { IsString, IsEmail, IsNumber, ValidateNested } from 'class-validator';
+import { Type } from 'class-transformer';
+
+class LocationDto {
+  @IsString()
+  city: string;
+
+  @IsString()
+  country: string;
+
+  @IsNumber()
+  latitude: number;
+
+  @IsNumber()
+  longitude: number;
+}
 
 export class CreateUserDto {
   @IsString()
@@ -10,13 +25,9 @@ export class CreateUserDto {
   @IsEmail()
   email: string;
 
-  @IsObject()
-  location: {
-    city: string;
-    country: string;
-    latitude: number;
-    longitude: number;
-  };
+  @ValidateNested()
+  @Type(() => LocationDto)
+  location: LocationDto;
 
   @IsString()
   picture: string;

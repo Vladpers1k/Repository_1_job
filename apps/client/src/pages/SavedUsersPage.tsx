@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import UserCard from "../components/UserCard";
 
-const API_URL = process.env.REACT_APP_API_URL as string;
+const API_URL = process.env.REACT_APP_API_URL || "http://localhost:3000";
 
 export default function SavedUsersPage() {
   const [users, setUsers] = useState<any[]>([]);

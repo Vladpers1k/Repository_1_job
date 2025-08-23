@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@faker-js/faker": "^9.9.0",
     "@isaacs/brace-expansion": "^5.0.0",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.1.6",

@@ -1,0 +1,26 @@
+[
+  {
+    "name": "Ivan Petrenko",
+    "gender": "male",
+    "email": "ivan.petrenko@example.com",
+    "location": {
+      "city": "Kyiv",
+      "country": "Ukraine",
+      "latitude": 50.4501,
+      "longitude": 30.5234
+    },
+    "picture": "https://randomuser.me/api/portraits/men/1.jpg"
+  },
+  {
+    "name": "Olena Shevchenko",
+    "gender": "female",
+    "email": "olena.shevchenko@example.com",
+    "location": {
+      "city": "Lviv",
+      "country": "Ukraine",
+      "latitude": 49.8397,
+      "longitude": 24.0297
+    },
+    "picture": "https://randomuser.me/api/portraits/women/2.jpg"
+  }
+]

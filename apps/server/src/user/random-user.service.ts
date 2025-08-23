@@ -3,8 +3,7 @@ import { HttpService } from '@nestjs/axios';
 import { firstValueFrom } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { CreateUserDto } from './dto/create-user.dto';
-import * as fs from 'fs';
-import * as path from 'path';
+import { faker } from '@faker-js/faker';
 
 @Injectable()
 export class RandomUserService {
@@ -41,16 +40,20 @@ export class RandomUserService {
         picture: userData.picture.large,
       };
     } catch (error) {
-      console.error(
-        '⚠️ randomuser.me недоступний → fallback на локальний users.json',
-      );
+      console.warn('⚠️ randomuser.me недоступний → fallback на faker');
 
-      const localPath = path.join(__dirname, '../../data/users.json');
-      const rawData = fs.readFileSync(localPath, 'utf-8');
-      const users = JSON.parse(rawData);
-
-      const randomIndex = Math.floor(Math.random() * users.length);
-      return users[randomIndex];
+      return {
+        name: faker.person.fullName(),
+        gender: faker.person.sexType(),
+        email: faker.internet.email(),
+        location: {
+          city: faker.location.city(),
+          country: faker.location.country(),
+          latitude: Number(faker.location.latitude()),
+          longitude: Number(faker.location.longitude()),
+        },
+        picture: faker.image.avatar(),
+      };
     }
   }
 }

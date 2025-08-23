@@ -26,7 +26,7 @@ export default function UserCard({ user, onSave, onDelete }: Props) {
   return (
     <div className="border rounded-lg p-4 shadow flex flex-col items-center gap-2">
       <img
-        src={user.picture || "https://via.placeholder.com/150"}
+        src={user.picture || "https://placehold.co/150x150"}
         alt={user.name || "User"}
         className="w-24 h-24 rounded-full"
       />

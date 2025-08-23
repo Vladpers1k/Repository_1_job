@@ -45,7 +45,6 @@ export class RandomUserService {
         '⚠️ randomuser.me недоступний → fallback на локальний users.json',
       );
 
-      // 🟠 fallback: беремо локального користувача
       const localPath = path.join(__dirname, '../../data/users.json');
       const rawData = fs.readFileSync(localPath, 'utf-8');
       const users = JSON.parse(rawData);
